@@ -30,15 +30,12 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // שימוש ב-Swagger (כמובן רק בסביבה של פיתוח)
-// if (app.Environment.IsDevelopment())
-// {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API v1");
-        c.RoutePrefix = string.Empty;  // הפניה לדף Swagger בשטח הבסיסי
-    });
-// }
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API v1");
+    c.RoutePrefix = string.Empty;  // הפניה לדף Swagger בשטח הבסיסי
+});
 
 // שימוש במדיניות CORS
 app.UseCors("AllowAll");
@@ -84,6 +81,6 @@ app.MapDelete("/tasks/{id}", async (ToDoDbContext db, int id) =>
     return Results.NoContent();
 });
 
-app.MapGet("/", ()=>"ToDoListApi is running...");
+app.MapGet("/", () => "ToDoListApi is running...");
 
 app.Run();
